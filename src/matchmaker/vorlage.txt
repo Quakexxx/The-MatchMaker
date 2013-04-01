@@ -1,3 +1,0 @@
-		case "American":
-			this.nationnr=1;
-			break;
