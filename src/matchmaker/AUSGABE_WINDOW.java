@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////////////////////
+//WORLD OF TANKS-MATCHMAKINGCALCULATOR								//
+//PROGRAMMERS: EOMAER; PSAIKO; EFERDI								//
+//PROGRAMMINGENVIORNMENT: Eclipse IDE for Java Developers			//
+//Version: Juno Service Release 2									//
+//OS: Microsoft Windows [Version 6.0.6002]							//
+//////////////////////////////////////////////////////////////////////
 package matchmaker;
 
 import javax.swing.*;
