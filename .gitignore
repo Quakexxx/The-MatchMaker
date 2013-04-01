@@ -4,3 +4,4 @@ out
 # Package Files #
 *.war
 *.ear
+*.iml
