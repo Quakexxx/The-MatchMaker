@@ -1,0 +1,18 @@
+		case "American":
+			this.nationnr=1;
+			break;
+		case "British":
+			this.nationnr=2;
+			break;
+		case "German":
+			this.nationnr=3;
+			break;
+		case "French":
+			this.nationnr=4;
+			break;
+		case "Soviet":
+			this.nationnr=5;
+			break;
+		case "Chinese":
+			this.nationnr=6;
+			break;            
