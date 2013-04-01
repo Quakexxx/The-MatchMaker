@@ -4,4 +4,4 @@ small WOT (World of Tanks) MatchMaker to show the match making facts of the tank
 
 Dowload
 ==============
-The only file you need is the <a href="https://github.com/eferdi/The-MatchMaker/blob/master/matchmaker.jar">matchmaker.jar</a>.
+The only file you need is the <a href="https://github.com/eferdi/The-MatchMaker/blob/master/matchmaker.jar?raw=true">matchmaker.jar</a>.
