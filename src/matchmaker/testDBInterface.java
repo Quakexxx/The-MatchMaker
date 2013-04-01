@@ -1,3 +1,4 @@
+package matchmaker;
 import java.sql.ResultSet;
 
 /**
@@ -12,7 +13,7 @@ public class testDBInterface {
     public static void main(String[] args) {
         try
         {
-            dbInterface db = new dbInterface("E:/Dokumente und Einstellungen/Besitzer/IdeaProjects/untitled/tanks.sqlite");
+            dbInterface db = new dbInterface("src/matchmaker/database/tanks.sqlite");
             ResultSet tanks = db.getTanksByNation("American");
             while(tanks.next())
             {
