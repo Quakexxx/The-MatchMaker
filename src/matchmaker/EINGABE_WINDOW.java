@@ -3,7 +3,7 @@ package matchmaker;
 import javax.swing.*;
 
 import java.awt.*;
-//Event brauchen wir für das Ereigniss, wenn ein Button geklickt wird
+//Event brauchen wir fuer das Ereigniss, wenn ein Button geklickt wird
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.URI;
@@ -25,6 +25,9 @@ public class EINGABE_WINDOW extends JFrame{
 	private JPanel panel_links;
 	private JPanel panel_oben;
 	private JPanel panel_unten;
+	private ImageIcon logo=new ImageIcon("src/matchmaker/logo.png");
+	private JLabel label_logo=new JLabel("",this.logo,JLabel.CENTER);
+	private JLabel label_lizenz=new JLabel("<html><center>This work is licensed under the <br>Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.<br> To view a copy of this license, visit <br><a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\">the website or click on the icon</a>.</center></body></html>");
 	private JComboBox<String> nation;
 	private String[] nations={"all","American","British","German","French","Soviet","Chinese"};
 	private JComboBox<String> category;
@@ -44,9 +47,9 @@ public class EINGABE_WINDOW extends JFrame{
 	    //Das BorderLayout ist mal das erste
 	    getContentPane().setLayout(new BorderLayout(5,5));
 	    
-	    //Überschrift Label erzeugen
+	    //ueberschrift Label erzeugen
 	    this.label_ueberschrift=new JLabel("Choose your Nation, Category and Tier!");
-	    //Überschrift Label zentrieren
+	    //ueberschrift Label zentrieren
 	    this.label_ueberschrift.setHorizontalAlignment(JLabel.CENTER);
 	    //unterschrift erzeugen:
 		this.label_unten=new JLabel("<html><body>Coded by <a href=\"http:\\www.http://worldoftanks.eu/community/clans/500000894-KLONK/\">[KLONK]</a></body></html>");
@@ -55,16 +58,23 @@ public class EINGABE_WINDOW extends JFrame{
 	    //panel erzeugen und label auf panel packen
 	    this.panel_oben=new JPanel();
 	    this.panel_oben.add(label_ueberschrift);
-	    this.panel_unten=new JPanel();
+	    this.panel_unten=new JPanel(new GridLayout(3,1));
 	    this.label_unten.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.panel_unten.add(this.label_unten);
         goWebsite(this.label_unten);
+        this.label_lizenz.setHorizontalAlignment(JLabel.CENTER);
+        this.label_logo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.label_lizenz.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        goWebsite2(this.label_logo);
+        goWebsite2(this.label_lizenz);
+        this.panel_unten.add(this.label_unten);
+        this.panel_unten.add(this.label_logo);
+        this.panel_unten.add(this.label_lizenz);
         
 	    //Buttons erstellen
 	    this.button_weiter=new JButton("OK");
 	    this.button_abbrechen=new JButton("Exit");
 	    
-	    //Panels für die Buttons erstellen
+	    //Panels fuer die Buttons erstellen
 	    this.panel_rechts=new JPanel(new GridLayout(6,1));
 	    
 	    //Auf das Panel Buttons Packen
@@ -75,7 +85,7 @@ public class EINGABE_WINDOW extends JFrame{
 	    this.panel_rechts.add(this.button_abbrechen);
 	    this.panel_rechts.add(new JLabel(""));
 	    
-	    //Listener für Buttons
+	    //Listener fuer Buttons
         addButtonListener(this.button_weiter);
 	    addButtonListener(this.button_abbrechen);
         
@@ -114,6 +124,18 @@ public class EINGABE_WINDOW extends JFrame{
 	            public void mouseClicked(MouseEvent e) {
 	                try {
 	                    Desktop.getDesktop().browse(new URI("http://www.worldoftanks.eu/community/clans/500000894-KLONK/#wot&mt_order_by=-role"));
+	                } catch (URISyntaxException | IOException ex) {
+	                    //It looks like there's a problem
+	                }
+	            }
+	        });
+	    }
+	  private void goWebsite2(JLabel website) {
+	        website.addMouseListener(new MouseAdapter() {
+	            @Override
+	            public void mouseClicked(MouseEvent e) {
+	                try {
+	                    Desktop.getDesktop().browse(new URI("http://creativecommons.org/licenses/by-nc-sa/3.0/"));
 	                } catch (URISyntaxException | IOException ex) {
 	                    //It looks like there's a problem
 	                }

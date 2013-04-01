@@ -3,7 +3,7 @@ package matchmaker;
 import javax.swing.*;
 
 import java.awt.*;
-//Event brauchen wir für das Ereigniss, wenn ein Button geklickt wird
+//Event brauchen wir fuer das Ereigniss, wenn ein Button geklickt wird
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.URI;
@@ -24,6 +24,9 @@ public class EINGABE_PANZER extends JFrame{
 	private JPanel panel_links;
 	private JPanel panel_oben;
 	private JPanel panel_unten;
+	private ImageIcon logo=new ImageIcon("src/matchmaker/logo.png");
+	private JLabel label_logo=new JLabel("",this.logo,JLabel.CENTER);
+	private JLabel label_lizenz=new JLabel("<html><center>This work is licensed under the <br>Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.<br> To view a copy of this license, visit <br><a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\">the website or click on the icon</a>.</center></body></html>");
 	public JComboBox<String> tanks;
 	public String nation;
 	public int nation_nr;
@@ -81,19 +84,27 @@ public class EINGABE_PANZER extends JFrame{
 	    
 
 	    
-	    //überschrift auf panel oben:
+	    //ueberschrift auf panel oben:
 	    this.panel_oben.add(this.label_ueberschrift);
 	    
 	    //unterschrift auf label unten
+	    this.panel_unten=new JPanel(new GridLayout(3,1));
 	    this.label_unten.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.panel_unten.add(this.label_unten);
         goWebsite(this.label_unten);
+        this.label_lizenz.setHorizontalAlignment(JLabel.CENTER);
+        this.label_logo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.label_lizenz.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        goWebsite2(this.label_logo);
+        goWebsite2(this.label_lizenz);
+        this.panel_unten.add(this.label_unten);
+        this.panel_unten.add(this.label_logo);
+        this.panel_unten.add(this.label_lizenz);
         	    
 	    //Buttons erstellen
 	    this.button_weiter=new JButton("OK");
 	    this.button_abbrechen=new JButton("Exit");
 	    this.button_back=new JButton("Back");
-	    //Panels für die Buttons erstellen
+	    //Panels fuer die Buttons erstellen
 	    
 	    this.panel_rechts=new JPanel(new GridLayout(3,1));
 	    
@@ -102,7 +113,7 @@ public class EINGABE_PANZER extends JFrame{
 	    this.panel_rechts.add(this.button_back);
 	    this.panel_rechts.add(this.button_abbrechen);
 	    	    
-	    //Listener für Buttons
+	    //Listener fuer Buttons
         addButtonListener(this.button_weiter);
 	    addButtonListener(this.button_back);
 	    addButtonListener(this.button_abbrechen);
@@ -117,6 +128,18 @@ public class EINGABE_PANZER extends JFrame{
 	    setVisible(true);
 	    
 	}	
+	  private void goWebsite2(JLabel website) {
+	        website.addMouseListener(new MouseAdapter() {
+	            @Override
+	            public void mouseClicked(MouseEvent e) {
+	                try {
+	                    Desktop.getDesktop().browse(new URI("http://creativecommons.org/licenses/by-nc-sa/3.0/"));
+	                } catch (URISyntaxException | IOException ex) {
+	                    //It looks like there's a problem
+	                }
+	            }
+	        });
+	    }
 	  private void goWebsite(JLabel website) {
 	        website.addMouseListener(new MouseAdapter() {
 	            @Override
@@ -561,7 +584,7 @@ public class EINGABE_PANZER extends JFrame{
 		tanknames=this.tankauswahl();
 		
 		this.setVisible(false);
-		//Wenn kein tank wählbar, dann wird auch nix ausgegeben
+		//Wenn kein tank waehlbar, dann wird auch nix ausgegeben
 		if(tanknames[0].equals("No Tank Available")==true){
 			JFrame frame = new JFrame("JOptionPane showMessageDialog example");
 			JOptionPane.showMessageDialog(frame, "<html><body><center><h1>THERE IS NO TANK AVAILABLE!</h1><br>What a tankcommander are you, <br>to drive into a battle without a tank?"//+"<br>because of guys like you the ENDSIEG was canceled!"

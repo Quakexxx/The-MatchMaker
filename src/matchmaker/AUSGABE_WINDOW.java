@@ -4,16 +4,19 @@ import javax.swing.*;
 
 import java.awt.*;
 
-//Event brauchen wir für das Ereigniss, wenn ein Button geklickt wird
+//Event brauchen wir fuer das Ereigniss, wenn ein Button geklickt wird
 import java.awt.event.*;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.GridLayout;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,7 +32,7 @@ public class AUSGABE_WINDOW extends JFrame{
 	private JLabel label_selected;
 	private JLabel label_tank;
 	private JLabel label_possible;
-	private JButton button_schließen;
+	private JButton button_schliessen;
 	private JButton button_begin;
 	private JPanel panel_rechts;
 	private JPanel panel_links;
@@ -38,6 +41,9 @@ public class AUSGABE_WINDOW extends JFrame{
 	private JPanel panel_links_1;
 	private JPanel panel_links_2;
 	private JTable tabelle_panzer;
+	private ImageIcon logo=new ImageIcon("src/matchmaker/logo.png");
+	private JLabel label_logo=new JLabel("",this.logo,JLabel.CENTER);
+	private JLabel label_lizenz=new JLabel("<html><center>This work is licensed under the <br>Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.<br> To view a copy of this license, visit <br><a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\">the website or click on the icon</a>.</center></body></html>");
 	public TANK[][][] tanks_all=new TANK[8][7][22];
 	public TANK[] chosen=new TANK[2];
 	public TANK[] tanks_available;
@@ -59,28 +65,40 @@ public class AUSGABE_WINDOW extends JFrame{
 		this.panel_links=new JPanel(new BorderLayout(5,5));
 		this.panel_oben=new JPanel();
 		this.panel_rechts= new JPanel(new GridLayout(6,1));
-		this.panel_unten=new JPanel();
+		this.panel_unten=new JPanel(new GridLayout(3,1));
+		this.label_unten=new JLabel("<html><body>Coded by <a href=\"http://www.worldoftanks.eu/community/clans/500000894-KLONK/\">[KLONK]</a></body></html>");
+		this.label_unten.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.label_unten.setHorizontalAlignment(JLabel.CENTER);
+		goWebsite(this.label_unten);
+        this.label_lizenz.setHorizontalAlignment(JLabel.CENTER);
+        this.label_logo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.label_lizenz.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        goWebsite2(this.label_logo);
+        goWebsite2(this.label_lizenz);
+        this.panel_unten.add(this.label_unten);
+        this.panel_unten.add(this.label_logo);
+        this.panel_unten.add(this.label_lizenz);
+        
 		this.panel_links_1=new JPanel(new BorderLayout(5,5));
 		this.panel_links_2=new JPanel(new BorderLayout(5,5));
 	    
 		//Buttons vorbereiten
 		this.button_begin=new JButton("AGAIN");
-		this.button_schließen=new JButton("EXIT");
+		this.button_schliessen=new JButton("EXIT");
 		//Auf das Panel Buttons Packen
 		this.panel_rechts.add(new JLabel(""));
 		this.panel_rechts.add(new JLabel(""));
 		this.panel_rechts.add(this.button_begin);
 		this.panel_rechts.add(new JLabel(""));
-	    this.panel_rechts.add(this.button_schließen);
+	    this.panel_rechts.add(this.button_schliessen);
 	    this.panel_rechts.add(new JLabel(""));
-	    //Listener für Buttons
+	    //Listener fuer Buttons
 	    this.addButtonListener(this.button_begin);
-	    this.addButtonListener(this.button_schließen);
+	    this.addButtonListener(this.button_schliessen);
 	    
 		//Labels vorbereiten
 		this.label_ueberschrift=new JLabel("OUTPUT:");
 		this.label_ueberschrift.setHorizontalAlignment(JLabel.CENTER);
-		this.label_unten=new JLabel("<html><body>Coded by <a href=\"http://www.worldoftanks.eu/community/clans/500000894-KLONK/\">[KLONK]</a></body></html>");
 		this.label_selected=new JLabel("You have selected the following as Your tank");
 		this.label_selected.setHorizontalAlignment(JLabel.CENTER);
 		this.label_tank=new JLabel("<html><body>NAME: "+this.chosen[0].get_name()+"<br>Nation: "+this.chosen[0].get_nation()+"<br>Category: "+this.chosen[0].get_category_out()+"<br>Tier: "+this.chosen[0].get_tier_real()+"<br>This results in a Battletier of min "+this.chosen[0].get_tier_virtual_min()+"<br>and max "+this.chosen[0].get_tier_virtual_max()+".</body></html>");
@@ -90,7 +108,7 @@ public class AUSGABE_WINDOW extends JFrame{
 		//Liste mit errors vorbereiten
 		this.tanks_available=this.tankberechnen();
 		this.errors=this.errorcodes();
-		//überschrift auf panel oben:
+		//ueberschrift auf panel oben:
 	    this.panel_oben.add(this.label_ueberschrift);
 		
 		//Tabelle Vorbereiten
@@ -110,10 +128,6 @@ public class AUSGABE_WINDOW extends JFrame{
         this.panel_links_1.add(BorderLayout.CENTER, this.panel_links_2);
         this.panel_links_1.add(BorderLayout.NORTH, this.label_selected);
         this.panel_links.add(BorderLayout.WEST, this.panel_links_1);
-        //Cursor wird über KLONK zu einer Hand
-        this.label_unten.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.panel_unten.add(this.label_unten);
-        goWebsite(this.label_unten);
         
         //Alles auf den Frame
         getContentPane().add(BorderLayout.NORTH, this.panel_oben);
@@ -140,7 +154,18 @@ public class AUSGABE_WINDOW extends JFrame{
 	            }
 	        });
 	    }
-	
+	  private void goWebsite2(JLabel website) {
+	        website.addMouseListener(new MouseAdapter() {
+	            @Override
+	            public void mouseClicked(MouseEvent e) {
+	                try {
+	                    Desktop.getDesktop().browse(new URI("http://creativecommons.org/licenses/by-nc-sa/3.0/"));
+	                } catch (URISyntaxException | IOException ex) {
+	                    //It looks like there's a problem
+	                }
+	            }
+	        });
+	    }
 	public void set_tanks(TANK[][][] t){
 		this.tanks_all=t;
 	}
@@ -159,7 +184,7 @@ public class AUSGABE_WINDOW extends JFrame{
 						int test_min=0;
 						test_min = this.chosen[0].get_tier_virtual_min()-this.tanks_all[i][j][k].get_tier_virtual_min();
 						
-					//Battletiermax gleich oder 1 größer
+					//Battletiermax gleich oder 1 groesser
 						int test_max=0;
 						test_max = this.tanks_all[i][j][k].get_tier_virtual_max()-this.chosen[0].get_tier_virtual_max();
 						
@@ -193,7 +218,7 @@ public class AUSGABE_WINDOW extends JFrame{
 						//Battletiermin gleich oder 1 kleiner
 						int test_min=0;
 						test_min = this.chosen[0].get_tier_virtual_min()-this.tanks_all[i][j][k].get_tier_virtual_min();
-					//Battletiermax gleich oder 1 größer
+					//Battletiermax gleich oder 1 groesser
 						int test_max=0;
 						test_max = this.tanks_all[i][j][k].get_tier_virtual_max()-this.chosen[0].get_tier_virtual_max();
 						if((test_min==0||test_min==1||test_min==-1) && (test_max==0|| test_max==1||test_max==-1)){
@@ -235,7 +260,7 @@ public class AUSGABE_WINDOW extends JFrame{
 					//Battletiermin gleich oder 1 kleiner
 						int test_min=0;
 						test_min = this.chosen[0].get_tier_virtual_min()-this.tanks_all[i][j][k].get_tier_virtual_min();
-					//Battletiermax gleich oder 1 größer
+					//Battletiermax gleich oder 1 groesser
 						int test_max=0;
 						test_max = this.tanks_all[i][j][k].get_tier_virtual_max()-this.chosen[0].get_tier_virtual_max();
 							if((test_min==0||test_min==1||test_min==-1) && (test_max==0|| test_max==1||test_max==-1)){
