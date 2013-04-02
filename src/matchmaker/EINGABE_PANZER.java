@@ -595,8 +595,8 @@ public class EINGABE_PANZER extends JFrame{
 		//Wenn kein tank waehlbar, dann wird auch nix ausgegeben
 		if(tanknames[0].equals("No Tank Available")==true){
 			JFrame frame = new JFrame("JOptionPane showMessageDialog example");
-			JOptionPane.showMessageDialog(frame, "<html><body><center><h1>THERE IS NO TANK AVAILABLE!</h1><br>What a tankcommander are you, <br>to drive into a battle without a tank?"//+"<br>because of guys like you the ENDSIEG was canceled!"
-					+"<br> Think about it and do it again!"+//"<br><FONT FACE=\"Segoe Script\">The Fuhrer"+
+			JOptionPane.showMessageDialog(frame, "<html><body><center><h1>THERE IS NO TANK AVAILABLE!</h1><br>What a tankcommander are you, <br>to drive into a battle without a tank?"
+					+"<br> Think about it and do it again!"+
 					"</center></html>", "NO TANK AVAILABLE!", JOptionPane.ERROR_MESSAGE);
 			back();
 		}
